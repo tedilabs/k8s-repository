@@ -1,0 +1,2 @@
+- op: remove
+  path: /spec/template/metadata/annotations/eks.amazonaws.com~1compute-type

@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- coredns.yaml
+components:
+- ../components/cluster-ip
+- ../components/fargate
+
+namespace: default
+
+images:
+- name: "602401143452.dkr.ecr.REGION.amazonaws.com/eks/coredns"
+  newName: "602401143452.dkr.ecr.ap-northeast-2.amazonaws.com/eks/coredns"
+  newTag: "v1.8.0-eksbuild.1"
