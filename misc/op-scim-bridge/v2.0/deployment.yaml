@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: op-scim-bridge
+  labels:
+    app.kubernetes.io/name: "op-scim-bridge"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "op-scim-bridge"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "op-scim-bridge"
+    spec:
+      containers:
+      - name: op-scim-bridge
+        image: 1password/scim:v2.0.0
+        envFrom:
+        - configMapRef:
+            name: op-scim-config
+        resources: {}
+          # We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          # requests:
+          #   cpu: 100m
+          #   memory: 256Mi
+          # limits:
+          #   cpu: 200m
+          #   memory: 512Mi
+        ports:
+        - name: http
+          containerPort: 3002
