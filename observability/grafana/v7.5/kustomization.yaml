@@ -12,4 +12,4 @@ commonLabels:
 
 images:
 - name: "grafana/grafana"
-  newTag: "6.6.2"
+  newTag: "7.5.2"
