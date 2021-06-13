@@ -10,4 +10,4 @@ namespace: default
 
 images:
 - name: "quay.io/argoproj/argocd"
-  newTag: "v2.0.1"
+  newTag: "v2.0.3"
