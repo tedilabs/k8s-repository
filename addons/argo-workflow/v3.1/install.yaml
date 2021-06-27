@@ -598,7 +598,7 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - docker.io/argoproj/argoexec:latest
+        - docker.io/argoproj/argoexec:v3.1.0
         command:
         - workflow-controller
         env:
