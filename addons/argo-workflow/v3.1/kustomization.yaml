@@ -10,8 +10,8 @@ namespace: default
 
 images:
 - name: "docker.io/argoproj/argocli"
-  newTag: "v3.1.0"
+  newTag: "v3.1.1"
 - name: "docker.io/argoproj/workflow-controller"
-  newTag: "v3.1.0"
+  newTag: "v3.1.1"
 - name: "docker.io/argoproj/argoexec"
-  newTag: "v3.1.0"
+  newTag: "v3.1.1"
