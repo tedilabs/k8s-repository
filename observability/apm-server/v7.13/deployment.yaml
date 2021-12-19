@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apm-server
+  labels:
+    app.kubernetes.io/name: "apm-server"
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "apm-server"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "apm-server"
+    spec:
+      serviceAccountName: apm-server
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: apm-server
+        image: docker.elastic.co/apm/apm-server:7.13.0
+        args:
+        # Log to `stderr` instead of `syslog` or `file`
+        - "-e"
+        resources: {}
+          # We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          # requests:
+          #   cpu: 100m
+          #   memory: 256Mi
+          # limits:
+          #   cpu: 200m
+          #   memory: 512Mi
+        ports:
+        - name: http
+          containerPort: 8200
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - mountPath: /usr/share/apm-server/apm-server.yml
+          readOnly: true
+          name: config
+          subPath: apm-server.yml
+        - mountPath: /usr/share/apm-server/data
+          name: data
+      volumes:
+      - name: config
+        configMap:
+          name: apm-server-config
+      - name: data
+        emptyDir: {}

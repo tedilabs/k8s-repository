@@ -1,0 +1,6 @@
+apm-server:
+  # Defines the host and port the server is listening on.
+  host: "0.0.0.0:8200"
+
+output.console:
+  enabled: true
