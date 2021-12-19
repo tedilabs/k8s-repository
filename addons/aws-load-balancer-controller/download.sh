@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/main/docs/install"
-DOWNLOAD_VERSION="v2.1.3"
+DOWNLOAD_VERSION="v2.2.3"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 mkdir -p $DOWNLOAD_DIRECTORY

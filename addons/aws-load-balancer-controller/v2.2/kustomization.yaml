@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crd.yaml
+- deployment.yaml
+- service.yaml
+- rbac.yaml
+- cert.yaml
+
+namespace: kube-system
+commonLabels:
+  app.kubernetes.io/part-of: "aws-load-balancer-controller"
+
+images:
+- name: "amazon/aws-alb-ingress-controller"
+  newTag: "v2.2.3"

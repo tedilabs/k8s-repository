@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-load-balancer-controller
+  labels:
+    app.kubernetes.io/component: "controller"
+    app.kubernetes.io/name: "aws-load-balancer-controller"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "controller"
+      app.kubernetes.io/name: "aws-load-balancer-controller"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/name: "aws-load-balancer-controller"
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: aws-load-balancer-controller
+      securityContext:
+        fsGroup: 1337
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: controller
+        image: amazon/aws-alb-ingress-controller:v2.2.3
+        args:
+        - --cluster-name=your-cluster-name
+        - --ingress-class=alb
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        ports:
+        - name: webhook-server
+          protocol: TCP
+          containerPort: 9443
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /healthz
+            port: 61779
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+        volumeMounts:
+        - mountPath: /tmp/k8s-webhook-server/serving-certs
+          name: cert
+          readOnly: true
+      volumes:
+      - name: cert
+        secret:
+          defaultMode: 420
+          secretName: aws-load-balancer-webhook-tls
