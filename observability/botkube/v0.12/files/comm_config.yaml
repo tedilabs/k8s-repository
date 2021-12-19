@@ -1,0 +1,23 @@
+communications:
+  slack:
+    enabled: false
+    channel: 'SLACK_CHANNEL'
+    token: 'SLACK_API_TOKEN'
+    notiftype: short                            # Change notification type short/long you want to receive. notiftype is optional and Default notification type is short (if not specified)
+
+  elasticsearch:
+    enable: false
+    server: 'ELASTICSEARCH_ADDRESS'              # e.g https://example.com:9243
+    username: 'ELASTICSEARCH_USERNAME'
+    password: 'ELASTICSEARCH_PASSWORD'
+    skipTLSVerify: false                      # toggle verification of TLS certificate of the Elastic nodes. Verification is skipped when option is true. Enable to connect to clusters with self-signed certs
+    # ELS index settings
+    index:
+      name: botkube
+      type: botkube-event
+      shards: 1
+      replicas: 0
+
+  webhook:
+    enabled: false
+    url: 'WEBHOOK_URL'                          # e.g https://example.com:80

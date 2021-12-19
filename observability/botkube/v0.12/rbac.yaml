@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: botkube
+  labels:
+    app.kubernetes.io/name: botkube
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: botkube
+  labels:
+    app.kubernetes.io/name: botkube
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs:
+  - get
+  - watch
+  - list
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: botkube
+  labels:
+    app.kubernetes.io/name: botkube
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: botkube
+subjects:
+- kind: ServiceAccount
+  name: botkube

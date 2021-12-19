@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: botkube
+  labels:
+    component: controller
+    app.kubernetes.io/name: botkube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: controller
+      app.kubernetes.io/name: botkube
+  template:
+    metadata:
+      labels:
+        component: controller
+        app.kubernetes.io/name: botkube
+    spec:
+      serviceAccountName: botkube
+      containers:
+      - name: botkube
+        image: "ghcr.io/infracloudio/botkube:v0.12.2"
+        volumeMounts:
+        - name: config-volume
+          mountPath: "/config"
+        env:
+        - name: CONFIG_PATH
+          value: "/config/"
+        # Set one of the log levels- info, warn, debug, error, fatal, panic
+        - name: LOG_LEVEL
+          value: "info"
+      volumes:
+      - name: config-volume
+        projected:
+          sources:
+          - configMap:
+              name: botkube-config
+      securityContext:
+        runAsUser: 101
+        runAsGroup: 101
