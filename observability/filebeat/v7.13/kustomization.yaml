@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- daemonset.yaml
+- rbac.yaml
+
+configMapGenerator:
+- name: filebeat-config
+  files:
+  - filebeat.yml=files/filebeat.yml
+
+namespace: default
+commonLabels:
+  app.kubernetes.io/part-of: "filebeat"
+
+images:
+- name: "docker.elastic.co/beats/filebeat"
+  newTag: "7.13.2"
