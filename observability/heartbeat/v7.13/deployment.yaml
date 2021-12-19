@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heartbeat
+  labels:
+    app.kubernetes.io/name: "heartbeat"
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "heartbeat"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "heartbeat"
+    spec:
+      serviceAccountName: heartbeat
+      securityContext:
+        runAsUser: 0
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: heartbeat
+        image: docker.elastic.co/beats/heartbeat:7.9.0
+        args:
+        # Log to `stderr` instead of `syslog` or `file`
+        - "-e"
+        resources: {}
+          # We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          # requests:
+          #   cpu: 100m
+          #   memory: 256Mi
+          # limits:
+          #   cpu: 100m
+          #   memory: 256Mi
+        ports:
+        - name: internal-http
+          containerPort: 5066
+        livenessProbe:
+          httpGet:
+            path: /
+            port: internal-http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: internal-http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - mountPath: /usr/share/heartbeat/heartbeat.yml
+          readOnly: true
+          name: config
+          subPath: heartbeat.yml
+        - mountPath: /usr/share/heartbeat/monitors.d
+          name: monitors
+        - mountPath: /usr/share/heartbeat/data
+          name: data
+      volumes:
+      - name: config
+        configMap:
+          name: heartbeat-config
+      - name: monitors
+        configMap:
+          name: heartbeat-monitors
+      - name: data
+        emptyDir: {}

@@ -1,0 +1,14 @@
+heartbeat.monitors:
+- type: icmp
+  schedule: '@every 10s'
+  hosts:
+  - localhost
+
+http:
+  enabled: true
+  host: 0.0.0.0
+  port: 5066
+
+output.console:
+  enabled: true
+  pretty: false

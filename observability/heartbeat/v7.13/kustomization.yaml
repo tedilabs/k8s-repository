@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- deployment.yaml
+- rbac.yaml
+
+configMapGenerator:
+- name: heartbeat-config
+  files:
+  - heartbeat.yml=files/heartbeat.yml
+- name: heartbeat-monitors
+  files: []
+
+namespace: default
+commonLabels:
+  app.kubernetes.io/part-of: "heartbeat"
+
+images:
+- name: "docker.elastic.co/beats/heartbeat"
+  newTag: "7.13.2"
