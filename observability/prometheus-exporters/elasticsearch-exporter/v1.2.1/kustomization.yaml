@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- deployment.yaml
+- service.yaml
+
+namespace: default
+commonLabels:
+  app.kubernetes.io/part-of: "elasticsearch-exporter"
+
+images:
+- name: "quay.io/prometheuscommunity/elasticsearch-exporter"
+  newTag: "v1.2.1"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-exporter
+  labels:
+    app.kubernetes.io/name: "elasticsearch-exporter"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: "elasticsearch-exporter"

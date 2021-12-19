@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+  labels:
+    app.kubernetes.io/name: "node-exporter"
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "node-exporter"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "node-exporter"
+    spec:
+      containers:
+      - name: node-exporter
+        image: quay.io/prometheus/node-exporter:v1.1.2
+        args:
+        - --web.listen-address=127.0.0.1:9100
+        - --path.procfs=/host/proc
+        - --path.sysfs=/host/sys
+        - --path.rootfs=/host/root
+        - --no-collector.wifi
+        - --no-collector.hwmon
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)
+        resources:
+          requests:
+            cpu: 102m
+            memory: 180Mi
+          limits:
+            cpu: 250m
+            memory: 180Mi
+        volumeMounts:
+        - mountPath: /host/proc
+          mountPropagation: HostToContainer
+          readOnly: true
+          name: proc
+        - mountPath: /host/sys
+          mountPropagation: HostToContainer
+          readOnly: true
+          name: sys
+        - mountPath: /host/root
+          mountPropagation: HostToContainer
+          readOnly: true
+          name: root
+      - name: kube-rbac-proxy
+        image: quay.io/brancz/kube-rbac-proxy:v0.8.0
+        args:
+        - --logtostderr
+        - --secure-listen-address=[$(IP)]:9100
+        - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+        - --upstream=http://127.0.0.1:9100/
+        env:
+        - name: IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        ports:
+        - name: https
+          containerPort: 9100
+          hostPort: 9100
+        resources:
+          limits:
+            cpu: 20m
+            memory: 40Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
+        securityContext:
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
+      hostNetwork: true
+      hostPID: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: node-exporter
+      tolerations:
+      - operator: Exists
+      volumes:
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: root
+        hostPath:
+          path: /
