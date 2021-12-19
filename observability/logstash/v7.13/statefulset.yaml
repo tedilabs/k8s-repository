@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: logstash
+  labels:
+    app.kubernetes.io/name: "logstash"
+spec:
+  serviceName: logstash
+  replicas: 1
+  podManagementPolicy: Parallel
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: 2Gi
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "logstash"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "logstash"
+    spec:
+      serviceAccountName: logstash
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: logstash
+        image: docker.elastic.co/logstash/logstash:7.13.2
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LS_JAVA_OPTS
+          value: "-Xmx4g -Xms4g"
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 9600
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 3
+        resources:
+          requests:
+            cpu: 200m
+            memory: 6Gi
+        volumeMounts:
+        # For data persistence
+        - mountPath: /usr/share/logstash/data
+          name: data
+        - mountPath: /usr/share/logstash/config/logstash.yml
+          readOnly: true
+          name: config
+          subPath: logstash.yml
+        - mountPath: /usr/share/logstash/config/pipelines.yml
+          readOnly: true
+          name: config
+          subPath: pipelines.yml
+        # For multi-pipelines
+        - mountPath: /usr/share/logstash/pipelines
+          name: pipelines
+        - mountPath: /usr/share/logstash/patterns
+          name: patterns
+        # Custom files that can be referenced by plugins.
+        - mountPath: /usr/share/logstash/files
+          name: files
+      volumes:
+      - name: config
+        configMap:
+          name: logstash-config
+      - name: pipelines
+        configMap:
+          name: logstash-pipelines
+      - name: patterns
+        configMap:
+          name: logstash-patterns
+      - name: files
+        configMap:
+          name: logstash-files

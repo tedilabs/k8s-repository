@@ -1,0 +1,37 @@
+######################## Logstash Configuration ############################
+
+# ------------  Node identity ------------
+# Use a descriptive name for the node:
+# If omitted the node name will default to the machine's host name
+# node.name: test
+
+
+# ------------ Pipeline Configuration Settings --------------
+# At startup, test if the configuration is valid and exit (dry run)
+config.test_and_exit: false
+# Periodically check if the configuration has changed and reload the pipeline
+# This can also be triggered manually through the SIGHUP signal
+config.reload.automatic: false
+# Show fully compiled configuration as debug log message
+# NOTE: --log.level must be 'debug'
+config.debug: false
+# When enabled, process escaped characters such as \n and \" in strings in the pipeline configuration files.
+config.support_escapes: false
+
+
+# ------------ Metrics Settings --------------
+# Bind address for the metrics REST endpoint
+http.host: "0.0.0.0"
+# Bind port for the metrics REST endpoint
+http.port: 9600
+
+
+# ------------ Debugging Settings --------------
+# Options for log.level:
+#   * fatal
+#   * error
+#   * warn
+#   * info (default)
+#   * debug
+#   * trace
+log.level: info

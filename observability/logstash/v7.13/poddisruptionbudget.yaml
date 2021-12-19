@@ -1,0 +1,11 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: logstash
+  labels:
+    app.kubernetes.io/name: "logstash"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "logstash"
+  maxUnavailable: 1
