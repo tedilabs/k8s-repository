@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  labels:
+    app.kubernetes.io/name: "kibana"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "kibana"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "kibana"
+    spec:
+      serviceAccountName: kibana
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:7.13.0
+        imagePullPolicy: IfNotPresent
+        resources: {}
+          # We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances pods run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          # requests:
+          #   cpu: 250m
+          #   memory: 750Mi
+          # limits:
+          #   cpu: 500m
+          #   memory: 1000Mi
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 5601
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1
+        volumeMounts:
+        - mountPath: /usr/share/kibana/config/kibana.yml
+          readOnly: true
+          name: config
+          subPath: kibana.yml
+      volumes:
+      - name: config
+        configMap:
+          name: kibana-config
+          defaultMode: 0640
