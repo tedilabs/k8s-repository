@@ -1,0 +1,9 @@
+# Domains
+"addons":
+- addons/**/*
+
+"misc":
+- misc/**/*
+
+"observability":
+- observability/**/*
