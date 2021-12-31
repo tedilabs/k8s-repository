@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://api.github.com/repos/external-secrets/kubernetes-external-secrets/tarball"
-DOWNLOAD_VERSION="8.2.3"
+DOWNLOAD_VERSION="8.5.0"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "$DOWNLOAD_URL/$DOWNLOAD_VERSION" -o $DOWNLOAD_VERSION.tar.gz

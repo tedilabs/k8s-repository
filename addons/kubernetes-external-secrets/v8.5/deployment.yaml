@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-external-secrets-controller
+  labels:
+    app.kubernetes.io/name: "kubernetes-external-secrets"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "kubernetes-external-secrets"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "kubernetes-external-secrets"
+    spec:
+      serviceAccountName: kubernetes-external-secrets
+      containers:
+      - name: kubernetes-external-secrets
+        image: "ghcr.io/external-secrets/kubernetes-external-secrets:8.5.0"
+        ports:
+        - name: prometheus
+          containerPort: 3001
+        imagePullPolicy: IfNotPresent
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        # resources:
+        #   limits:
+        #     cpu: 100m
+        #     memory: 128Mi
+        #   requests:
+        #     cpu: 100m
+        #     memory: 128Mi
+        env:
+        - name: "AWS_REGION"
+          value: "ap-norhteast-2"
+        # - name: "AWS_STS_ENDPOINT"
+        #   value: "https://sts-fips.us-east-1.amazonaws.com"
+        # - name: "AWS_SSM_ENDPOINT"
+        #   value: "http://ssm-fips.us-east-1.amazonaws.com"
+        # - name: "AWS_SM_ENDPOINT"
+        #   value: "http://secretsmanager-fips.us-east-1.amazonaws.com"
+        - name: "LOG_LEVEL"
+          value: "info"
+        - name: "LOG_MESSAGE_KEY"
+          value: "msg"
+        - name: "METRICS_PORT"
+          value: "3001"
+        - name: "POLLER_INTERVAL_MILLISECONDS"
+          value: "10000"
+        - name: "VAULT_ADDR"
+          value: "http://127.0.0.1:8200"
+        - name: "WATCH_TIMEOUT"
+          value: "60000"
+        - name: "WATCH_NAMESPACES"
+          value: ""
+      securityContext:
+        runAsNonRoot: true
