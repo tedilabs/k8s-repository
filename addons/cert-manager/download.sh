@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://github.com/jetstack/cert-manager/releases/download"
-DOWNLOAD_VERSION="v1.2.0"
+DOWNLOAD_VERSION="v1.5.3"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 mkdir -p $DOWNLOAD_DIRECTORY
