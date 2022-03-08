@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reflector
+  labels:
+    app.kubernetes.io/name: reflector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: reflector
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: reflector
+    spec:
+      serviceAccountName: reflector
+      securityContext:
+        fsGroup: 2000
+      containers:
+      - name: reflector
+        image: "emberstack/kubernetes-reflector:6.1.23"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ES_Serilog__MinimumLevel__Default
+          value: "Information"
+        - name: ES_Reflector__Watcher__Timeout
+          value: ""
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 1000
+        ports:
+        - name: http
+          containerPort: 25080
+          protocol: TCP
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          failureThreshold: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
