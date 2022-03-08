@@ -19,7 +19,6 @@ jobs:
       uses: codelytv/pr-size-labeler@v1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        github_api_url: 'github.dev.kr.krpay.io/api/v3'
         xs_label: 'size/XS'
         xs_max_size: '20'
         s_label: 'size/S'
