@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crd.yaml
+- deployment.yaml
+- rbac.yaml
+- service.yaml
+
+namespace: kube-system
+commonLabels:
+  app.kubernetes.io/part-of: "sealed-secrets"
+
+images:
+- name: "quay.io/bitnami/sealed-secrets-controller"
+  newTag: "v0.16.0"
