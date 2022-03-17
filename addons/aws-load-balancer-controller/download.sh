@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download"
-DOWNLOAD_VERSION="v2.4.0"
+DOWNLOAD_VERSION="v2.4.1"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 mkdir -p $DOWNLOAD_DIRECTORY

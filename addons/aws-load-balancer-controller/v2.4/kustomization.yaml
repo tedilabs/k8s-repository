@@ -15,4 +15,4 @@ commonLabels:
 
 images:
 - name: "amazon/aws-alb-ingress-controller"
-  newTag: "v2.4.0"
+  newTag: "v2.4.1"
