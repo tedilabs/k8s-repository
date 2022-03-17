@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+DOWNLOAD_VERSION="v0.4.4"
+DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
+
+helm repo add external-secrets https://charts.external-secrets.io
+
+mkdir -p $DOWNLOAD_DIRECTORY
+
+helm template external-secrets \
+   external-secrets/external-secrets \
+   -n external-secrets \
+   --set installCRDs=true \
+   --version $DOWNLOAD_VERSION \
+   --output-dir $DOWNLOAD_DIRECTORY
