@@ -9,5 +9,5 @@ resources:
 namespace: kube-system
 
 images:
-- name: "quay.io/reactiveops/rbac-manager:v1"
+- name: "quay.io/reactiveops/rbac-manager"
   newTag: "v1"
