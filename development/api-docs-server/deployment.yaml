@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-docs-server
+  labels:
+    app.kubernetes.io/name: "api-docs-server"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "api-docs-server"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "api-docs-server"
+    spec:
+      containers:
+      - name: api-docs-server
+        image: api-docs-server:latest
+        imagePullPolicy: Always
+        resources: {}
+          # We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances pods run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          # requests:
+          #   cpu: 100m
+          #   memory: 128Mi
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 3000
