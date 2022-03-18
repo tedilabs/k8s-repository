@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- statefulset.yaml
+- service.yaml
+- rbac.yaml
+
+configMapGenerator:
+- name: atlantis-env
+  envs:
+  - config.env
+- name: atlantis-config
+  files:
+  - repos.yaml=files/repos.yaml
+  - atlantis.yaml=files/atlantis.yaml
+
+namespace: default
+commonLabels:
+  app.kubernetes.io/part-of: "atlantis"
+
+images:
+- name: "ghcr.io/runatlantis/atlantis"
+  newTag: "v0.18.1"
