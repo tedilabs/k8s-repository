@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+## Base
+- view.yaml
+- edit.yaml
+- admin.yaml
+- cluster-admin.yaml
+## Domain
+- batch.view.yaml
+- batch.template-admin.yaml
+- batch.admin.yaml

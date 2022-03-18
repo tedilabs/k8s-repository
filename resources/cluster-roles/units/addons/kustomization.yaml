@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+# Argo CD
+- argo-applications.admin.yaml
+- argo-applications.view.yaml
+- argo-appprojects.admin.yaml
+- argo-appprojects.view.yaml
+# Argo Workflows
+- argo-workflows.admin.yaml
+- argo-workflows.view.yaml
+- argo-workflowtemplates.admin.yaml
+- argo-workflowtemplates.view.yaml
+# External Secrets
+- externalsecrets.admin.yaml
+- externalsecrets.view.yaml
+# Sealed Secrets
+- sealedsecrets.admin.yaml
+- sealedsecrets.view.yaml

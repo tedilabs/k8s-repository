@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: set:batch:admin
+  labels:
+    rbac.authorization.k8s.io/set: "batch-admin"
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "batch-admin"
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "addons-argo-workflows-admin"
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "addons-argo-workflowtemplates-admin"
+rules: []

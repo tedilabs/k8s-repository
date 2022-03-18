@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: unit:namespaces:view
+  labels:
+    rbac.authorization.k8s.io/unit: "namespaces-view"
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+## Cluster Scoped
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+## Namspace Scoped
+- apiGroups:
+  - ""
+  resources:
+  - limitranges
+  - resourcequotas
+  verbs:
+  - get
+  - list
+  - watch

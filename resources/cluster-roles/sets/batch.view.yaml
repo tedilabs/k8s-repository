@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: set:batch:view
+  labels:
+    rbac.authorization.k8s.io/set: "batch-view"
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "batch-view"
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "addons-argo-workflows-view"
+  - matchLabels:
+      rbac.authorization.k8s.io/unit: "addons-argo-workflowtemplates-view"
+rules: []
