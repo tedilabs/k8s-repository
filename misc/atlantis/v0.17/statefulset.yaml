@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: atlantis
+  labels:
+    app.kubernetes.io/name: "atlantis"
+spec:
+  serviceName: atlantis
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "atlantis"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "atlantis"
+    spec:
+      serviceAccountName: atlantis
+      securityContext:
+        # Atlantis group (1000) read/write access to volumes.
+        fsGroup: 1000
+      containers:
+      - name: atlantis
+        image: ghcr.io/runatlantis/atlantis:v0.17.6
+        envFrom:
+        - configMapRef:
+            name: atlantis-config
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 4141
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          # We only need to check every 60s since Atlantis is not a
+          # high-throughput service.
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 60
+        volumeMounts:
+        - mountPath: /atlantis
+          name: atlantis-data
+  volumeClaimTemplates:
+  - metadata:
+      name: atlantis-data
+    spec:
+      # Volume should not be shared by multiple nodes.
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          # The biggest thing Atlantis stores is the Git repo when it checks it out.
+          # It deletes the repo after the pull request is merged.
+          storage: 5Gi

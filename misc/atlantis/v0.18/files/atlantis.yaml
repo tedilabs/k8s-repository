@@ -1,0 +1,29 @@
+# default-tf-version: v1.1.3
+parallel-pool-size: 15
+autoplan-file-list: "**/*.tf,**/*.tfvars,**/*.tfvars.json,**/terragrunt.hcl"
+
+
+### VCS
+vcs-name: atlantis
+allow-draft-prs: false
+allow-fork-prs: false
+auto-merge: false
+checkout-strategy: branch
+# enable-diff-markdown-format: true
+# This is only supported by GitHub
+# hide-prev-plan-comments: true
+repo-allowlist: github.com/*
+
+
+### GitHUb
+# gh-hostname: my.github.enterprise.com
+# gh-org: my-org
+# gh-team-allowlist: dev:plan, infra:apply
+# gh-token:
+# gh-user: atlantis
+# gh-webhook-secret:
+
+
+### Terraform Cloud or Enterprise
+tfe-hostname: app.terraform.io
+# tfe-token:
