@@ -4,10 +4,10 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://api.github.com/repos/aws/amazon-vpc-cni-k8s/tarball"
-DOWNLOAD_VERSION="v1.9.3"
+DOWNLOAD_VERSION="v1.10.3"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "$DOWNLOAD_URL/$DOWNLOAD_VERSION" -o $DOWNLOAD_VERSION.tar.gz
 mkdir -p $DOWNLOAD_DIRECTORY
-tar -xzf $DOWNLOAD_VERSION.tar.gz --include "**/config/v1.9" --directory $DOWNLOAD_DIRECTORY --strip-components 3
+tar -xzf $DOWNLOAD_VERSION.tar.gz --include "**/config/master" --directory $DOWNLOAD_DIRECTORY --strip-components 3
 rm -f $DOWNLOAD_VERSION.tar.gz
