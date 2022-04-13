@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crds/clusterexternalsecret.yaml
+- crds/clustersecretstore.yaml
+- crds/externalsecret.yaml
+- crds/secretstore.yaml
+- cert-controller/deployment.yaml
+- cert-controller/rbac.yaml
+- webhook/deployment.yaml
+- webhook/rbac.yaml
+- webhook/secret.yaml
+- webhook/service.yaml
+- admission.yaml
+- deployment.yaml
+- rbac.yaml
+
+namespace: external-secrets
+labels:
+- pairs:
+    app.kubernetes.io/version: "v0.5.1"
+  includeSelectors: false
+
+
+images:
+- name: "ghcr.io/external-secrets/external-secrets"
+  newTag: "v0.5.1"

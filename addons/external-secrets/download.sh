@@ -2,10 +2,11 @@
 
 set -euf -o pipefail
 
-DOWNLOAD_VERSION="v0.4.4"
+DOWNLOAD_VERSION="v0.5.1"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 helm repo add external-secrets https://charts.external-secrets.io
+helm repo update external-secrets
 
 mkdir -p $DOWNLOAD_DIRECTORY
 

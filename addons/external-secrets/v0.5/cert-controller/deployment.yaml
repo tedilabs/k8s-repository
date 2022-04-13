@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-secrets-cert-controller
+  labels:
+    app.kubernetes.io/name: external-secrets-cert-controller
+    app.kubernetes.io/instance: external-secrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: external-secrets-cert-controller
+      app.kubernetes.io/instance: external-secrets
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: external-secrets-cert-controller
+        app.kubernetes.io/instance: external-secrets
+    spec:
+      serviceAccountName: external-secrets-cert-controller
+      containers:
+      - name: cert-controller
+        image: "ghcr.io/external-secrets/external-secrets:v0.5.1"
+        imagePullPolicy: IfNotPresent
+        args:
+        - certcontroller
+        - --crd-requeue-interval=5m
+        - --service-name=external-secrets-webhook
+        - --service-namespace=external-secrets
+        - --secret-name=external-secrets-webhook
+        - --secret-namespace=external-secrets
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: metrics
+        readinessProbe:
+          httpGet:
+            port: 8081
+            path: /readyz
+          initialDelaySeconds: 20
+          periodSeconds: 5
