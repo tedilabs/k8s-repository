@@ -7,10 +7,12 @@ resources:
 - rbac.yaml
 
 namespace: kube-system
-commonLabels:
-  app.kubernetes.io/name: "aws-node"
-  app.kubernetes.io/part-of: "aws-node"
-  app.kubernetes.io/version: "v1.10.3"
+labels:
+- pairs:
+    app.kubernetes.io/name: "aws-node"
+    app.kubernetes.io/part-of: "aws-node"
+    app.kubernetes.io/version: "v1.10.3"
+  includeSelectors: false
 
 images:
 - name: "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init"
