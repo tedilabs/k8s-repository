@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- install.yaml
+components:
+- ../components/custom-tools
+
+namespace: default
+commonLabels:
+  app.kubernetes.io/part-of: "argo-cd"
+
+images:
+- name: "quay.io/argoproj/argocd"
+  newTag: "v2.2.5"
