@@ -9,7 +9,7 @@ components:
 namespace: default
 labels:
 - pairs:
-    app.kubernetes.io/part-of: "argo-cd"
+    app.kubernetes.io/part-of: "argocd"
     app.kubernetes.io/version: "v2.3.3"
   includeSelectors: false
 
