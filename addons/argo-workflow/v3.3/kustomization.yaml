@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- install.yaml
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "argo-workflow"
+    app.kubernetes.io/version: "v3.3.2"
+  includeSelectors: false
+
+replacements:
+- source:
+    kind: Deployment
+    name: workflow-controller
+    fieldPath: spec.template.spec.containers.[name=workflow-controller].image
+    options:
+      delimiter: ":"
+      index: 1
+  targets:
+  - select:
+      kind: Deployment
+      name: workflow-controller
+    fieldPaths:
+    - spec.template.spec.containers.[name=workflow-controller].args.3
+    options:
+      delimiter: ":"
+      index: 1
+
+images:
+- name: "quay.io/argoproj/argocli"
+  newTag: "v3.3.2"
+- name: "quay.io/argoproj/workflow-controller"
+  newTag: "v3.3.2"
