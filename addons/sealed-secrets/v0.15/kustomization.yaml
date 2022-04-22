@@ -10,5 +10,5 @@ resources:
 namespace: default
 
 images:
-- name: "quay.io/bitnami/sealed-secrets-controller"
+- name: "docker.io/bitnami/sealed-secrets-controller"
   newTag: "v0.15.0"

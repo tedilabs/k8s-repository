@@ -12,5 +12,5 @@ commonLabels:
   app.kubernetes.io/part-of: "sealed-secrets"
 
 images:
-- name: "quay.io/bitnami/sealed-secrets-controller"
+- name: "docker.io/bitnami/sealed-secrets-controller"
   newTag: "v0.17.3"

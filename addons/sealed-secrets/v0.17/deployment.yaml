@@ -28,7 +28,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: sealed-secrets-controller
-        image: quay.io/bitnami/sealed-secrets-controller:v0.17.3
+        image: docker.io/bitnami/sealed-secrets-controller:v0.17.3
         imagePullPolicy: Always
         command:
         - controller

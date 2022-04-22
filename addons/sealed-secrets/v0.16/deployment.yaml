@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: sealed-secrets-controller
-        image: quay.io/bitnami/sealed-secrets-controller:v0.16.0
+        image: docker.io/bitnami/sealed-secrets-controller:v0.16.0
         imagePullPolicy: Always
         command:
         - controller
