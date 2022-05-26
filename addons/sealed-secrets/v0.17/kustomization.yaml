@@ -13,4 +13,4 @@ commonLabels:
 
 images:
 - name: "docker.io/bitnami/sealed-secrets-controller"
-  newTag: "v0.17.3"
+  newTag: "v0.17.5"
