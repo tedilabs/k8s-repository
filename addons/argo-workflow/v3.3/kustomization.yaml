@@ -8,7 +8,7 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "argo-workflow"
-    app.kubernetes.io/version: "v3.3.2"
+    app.kubernetes.io/version: "v3.3.6"
   includeSelectors: false
 
 replacements:
@@ -31,6 +31,6 @@ replacements:
 
 images:
 - name: "quay.io/argoproj/argocli"
-  newTag: "v3.3.2"
+  newTag: "v3.3.6"
 - name: "quay.io/argoproj/workflow-controller"
-  newTag: "v3.3.2"
+  newTag: "v3.3.6"
