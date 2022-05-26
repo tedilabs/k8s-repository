@@ -7,7 +7,12 @@ resources:
 - rbac.yaml
 
 namespace: kube-system
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "rbac-manager"
+    app.kubernetes.io/version: "v1.1.1"
+  includeSelectors: false
 
 images:
 - name: "quay.io/reactiveops/rbac-manager"
-  newTag: "v1"
+  newTag: "v1.1.1"

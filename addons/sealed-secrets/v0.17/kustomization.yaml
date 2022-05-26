@@ -8,8 +8,11 @@ resources:
 - service.yaml
 
 namespace: kube-system
-commonLabels:
-  app.kubernetes.io/part-of: "sealed-secrets"
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "sealed-secrets"
+    app.kubernetes.io/version: "v0.17.5"
+  includeSelectors: false
 
 images:
 - name: "docker.io/bitnami/sealed-secrets-controller"

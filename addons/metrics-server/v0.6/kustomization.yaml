@@ -8,6 +8,11 @@ resources:
 - service.yaml
 
 namespace: kube-system
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "metrics-server"
+    app.kubernetes.io/version: "v0.6.1"
+  includeSelectors: false
 
 images:
 - name: "k8s.gcr.io/metrics-server/metrics-server"

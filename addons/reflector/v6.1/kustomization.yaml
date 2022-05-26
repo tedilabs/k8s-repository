@@ -6,8 +6,11 @@ resources:
 - rbac.yaml
 
 namespace: kube-system
-commonLabels:
-  app.kubernetes.io/part-of: "reflector"
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "reflector"
+    app.kubernetes.io/version: "6.1.23"
+  includeSelectors: false
 
 images:
 - name: "emberstack/kubernetes-reflector"
