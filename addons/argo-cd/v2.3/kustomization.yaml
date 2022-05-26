@@ -10,11 +10,11 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "argocd"
-    app.kubernetes.io/version: "v2.3.3"
+    app.kubernetes.io/version: "v2.3.4"
   includeSelectors: false
 
 images:
 - name: "quay.io/argoproj/argocd"
-  newTag: "v2.3.3"
+  newTag: "v2.3.4"
 - name: "quay.io/argoproj/argocd-applicationset"
   newTag: "v0.4.1"
