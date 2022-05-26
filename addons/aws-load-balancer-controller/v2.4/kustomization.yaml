@@ -11,8 +11,11 @@ resources:
 - ingress-class.yaml
 
 namespace: kube-system
-commonLabels:
-  app.kubernetes.io/part-of: "aws-load-balancer-controller"
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "aws-load-balancer-controller"
+    app.kubernetes.io/version: "v2.4.1"
+  includeSelectors: false
 
 images:
 - name: "amazon/aws-alb-ingress-controller"
