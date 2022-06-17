@@ -23,8 +23,6 @@ webhooks:
       namespace: "external-secrets"
       name: external-secrets-webhook
       path: /validate-external-secrets-io-v1beta1-secretstore
-    # will be set by controller
-    caBundle: Cg==
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
@@ -47,8 +45,6 @@ webhooks:
       namespace: "external-secrets"
       name: external-secrets-webhook
       path: /validate-external-secrets-io-v1beta1-clustersecretstore
-    # will be set by controller
-    caBundle: Cg==
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
@@ -79,8 +75,7 @@ webhooks:
       namespace: "external-secrets"
       name: external-secrets-webhook
       path: /validate-external-secrets-io-v1beta1-externalsecret
-    # will be set by controller
-    caBundle: Cg==
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
+  failurePolicy: Fail

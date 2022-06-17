@@ -20,7 +20,7 @@ spec:
       serviceAccountName: external-secrets
       containers:
       - name: external-secrets
-        image: "ghcr.io/external-secrets/external-secrets:v0.5.1"
+        image: "ghcr.io/external-secrets/external-secrets:v0.5.6"
         imagePullPolicy: IfNotPresent
         args:
         - --concurrent=1

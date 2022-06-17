@@ -20,10 +20,11 @@ spec:
       serviceAccountName: external-secrets-webhook
       containers:
       - name: webhook
-        image: "ghcr.io/external-secrets/external-secrets:v0.5.1"
+        image: "ghcr.io/external-secrets/external-secrets:v0.5.6"
         imagePullPolicy: IfNotPresent
         args:
         - webhook
+        - --port=10250
         - --dns-name=external-secrets-webhook.external-secrets.svc
         - --cert-dir=/tmp/certs
         - --check-interval=5m
@@ -31,7 +32,7 @@ spec:
         - containerPort: 8080
           protocol: TCP
           name: metrics
-        - containerPort: 9443
+        - containerPort: 10250
           protocol: TCP
           name: webhook
         readinessProbe:
