@@ -10,9 +10,9 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "grafana"
-    app.kubernetes.io/version: "9.0.1"
+    app.kubernetes.io/version: "9.0.2"
   includeSelectors: false
 
 images:
 - name: "grafana/grafana"
-  newTag: "9.0.1"
+  newTag: "9.0.2"
