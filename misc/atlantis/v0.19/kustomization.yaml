@@ -21,4 +21,4 @@ commonLabels:
 
 images:
 - name: "ghcr.io/runatlantis/atlantis"
-  newTag: "v0.18.1"
+  newTag: "v0.19.7"
