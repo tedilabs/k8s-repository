@@ -2,7 +2,7 @@
 
 set -euf -o pipefail
 
-DOWNLOAD_VERSION="v0.5.6"
+DOWNLOAD_VERSION="v0.5.9"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 helm repo add external-secrets https://charts.external-secrets.io
