@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik
+  name: traefik-ingress
   labels:
     app.kubernetes.io/name: traefik
     helm.sh/chart: traefik-15.3.0
@@ -19,4 +19,44 @@ spec:
   - port: 443
     name: websecure
     targetPort: "websecure"
+    protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-metrics
+  labels:
+    app.kubernetes.io/name: traefik
+    helm.sh/chart: traefik-15.3.0
+    app.kubernetes.io/instance: traefik
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik
+  ports:
+  - port: 9100
+    name: metrics
+    targetPort: "metrics"
+    protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+    helm.sh/chart: traefik-15.3.0
+    app.kubernetes.io/instance: traefik
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik
+  ports:
+  - port: 8080
+    name: traefik
+    targetPort: "traefik"
     protocol: TCP

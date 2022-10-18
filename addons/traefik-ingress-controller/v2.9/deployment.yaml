@@ -40,9 +40,9 @@ spec:
         - "--global.checknewversion"
         - "--global.sendanonymoususage=false"
         - "--entrypoints.metrics.address=:9100/tcp"
-        - "--entrypoints.traefik.address=:9000/tcp"
-        - "--entrypoints.web.address=:8000/tcp"
-        - "--entrypoints.websecure.address=:8443/tcp"
+        - "--entrypoints.traefik.address=:8080/tcp"
+        - "--entrypoints.web.address=:80/tcp"
+        - "--entrypoints.websecure.address=:443/tcp"
         - "--api.dashboard=true"
         - "--ping=true"
         - "--metrics.prometheus=true"
@@ -55,18 +55,18 @@ spec:
           containerPort: 9100
           protocol: "TCP"
         - name: "traefik"
-          containerPort: 9000
+          containerPort: 8080
           protocol: "TCP"
         - name: "web"
-          containerPort: 8000
+          containerPort: 80
           protocol: "TCP"
         - name: "websecure"
-          containerPort: 8443
+          containerPort: 443
           protocol: "TCP"
         livenessProbe:
           httpGet:
             path: /ping
-            port: 9000
+            port: traefik
             scheme: HTTP
           failureThreshold: 3
           initialDelaySeconds: 2
@@ -76,7 +76,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /ping
-            port: 9000
+            port: traefik
             scheme: HTTP
           failureThreshold: 1
           initialDelaySeconds: 2
