@@ -43,6 +43,7 @@ spec:
         - "--entrypoints.traefik.address=:8080/tcp"
         - "--entrypoints.web.address=:80/tcp"
         - "--entrypoints.websecure.address=:443/tcp"
+        - "--entrypoints.websecure.http.tls=true"
         - "--api.dashboard=true"
         - "--api.insecure=true"
         - "--ping=true"
@@ -50,7 +51,6 @@ spec:
         - "--metrics.prometheus.entrypoint=metrics"
         - "--providers.kubernetescrd"
         - "--providers.kubernetesingress"
-        # - "--entrypoints.websecure.http.tls=true"
         ports:
         - name: "metrics"
           containerPort: 9100
