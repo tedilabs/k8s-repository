@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+    helm.sh/chart: traefik-15.3.0
+    app.kubernetes.io/instance: traefik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 0
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "9100"
+      labels:
+        app.kubernetes.io/name: traefik
+        helm.sh/chart: traefik-15.3.0
+        app.kubernetes.io/instance: traefik
+    spec:
+      serviceAccountName: traefik
+      terminationGracePeriodSeconds: 60
+      hostNetwork: false
+      containers:
+      - image: "traefik:2.9.1"
+        imagePullPolicy: IfNotPresent
+        name: traefik
+        args:
+        - "--global.checknewversion"
+        - "--global.sendanonymoususage=false"
+        - "--entrypoints.metrics.address=:9100/tcp"
+        - "--entrypoints.traefik.address=:9000/tcp"
+        - "--entrypoints.web.address=:8000/tcp"
+        - "--entrypoints.websecure.address=:8443/tcp"
+        - "--api.dashboard=true"
+        - "--ping=true"
+        - "--metrics.prometheus=true"
+        - "--metrics.prometheus.entrypoint=metrics"
+        - "--providers.kubernetescrd"
+        - "--providers.kubernetesingress"
+        # - "--entrypoints.websecure.http.tls=true"
+        ports:
+        - name: "metrics"
+          containerPort: 9100
+          protocol: "TCP"
+        - name: "traefik"
+          containerPort: 9000
+          protocol: "TCP"
+        - name: "web"
+          containerPort: 8000
+          protocol: "TCP"
+        - name: "websecure"
+          containerPort: 8443
+          protocol: "TCP"
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 9000
+            scheme: HTTP
+          failureThreshold: 3
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 9000
+            scheme: HTTP
+          failureThreshold: 1
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /tmp
+          name: tmp
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      securityContext:
+        fsGroup: 65532
