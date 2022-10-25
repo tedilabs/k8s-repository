@@ -41,8 +41,8 @@ spec:
         - "--global.sendanonymoususage=false"
         - "--entrypoints.metrics.address=:9100/tcp"
         - "--entrypoints.traefik.address=:8080/tcp"
-        - "--entrypoints.web.address=:80/tcp"
-        - "--entrypoints.websecure.address=:443/tcp"
+        - "--entrypoints.web.address=:18080/tcp"
+        - "--entrypoints.websecure.address=:18443/tcp"
         - "--entrypoints.websecure.http.tls=true"
         - "--api.dashboard=true"
         - "--api.insecure=true"
@@ -59,10 +59,10 @@ spec:
           containerPort: 8080
           protocol: "TCP"
         - name: "web"
-          containerPort: 80
+          containerPort: 18080
           protocol: "TCP"
         - name: "websecure"
-          containerPort: 443
+          containerPort: 18443
           protocol: "TCP"
         livenessProbe:
           httpGet:
