@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-secrets-webhook
+  labels:
+    app.kubernetes.io/name: external-secrets-webhook
+    app.kubernetes.io/instance: external-secrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: external-secrets-webhook
+      app.kubernetes.io/instance: external-secrets
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: external-secrets-webhook
+        app.kubernetes.io/instance: external-secrets
+    spec:
+      hostNetwork: false
+      serviceAccountName: external-secrets-webhook
+      containers:
+      - name: webhook
+        image: "ghcr.io/external-secrets/external-secrets:v0.6.0"
+        imagePullPolicy: IfNotPresent
+        args:
+        - webhook
+        - --port=10250
+        - --dns-name=external-secrets-webhook.external-secrets.svc
+        - --cert-dir=/tmp/certs
+        - --check-interval=5m
+        - --healthz-addr=:8081
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: metrics
+        - containerPort: 10250
+          protocol: TCP
+          name: webhook
+        readinessProbe:
+          httpGet:
+            port: 8081
+            path: /readyz
+          initialDelaySeconds: 20
+          periodSeconds: 5
+        volumeMounts:
+        - mountPath: /tmp/certs
+          name: certs
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          secretName: external-secrets-webhook
