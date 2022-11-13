@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- configmap.yaml
+
+patchesStrategicMerge:
+- on-rollout-completed.yaml
+- on-scaling-replica-set.yaml
+- on-rollout-step-completed.yaml
+- on-rollout-updated.yaml
+- on-rollout-aborted.yaml
+- on-rollout-paused.yaml
+- on-analysis-run-running.yaml
+- on-analysis-run-error.yaml
+- on-analysis-run-failed.yaml
