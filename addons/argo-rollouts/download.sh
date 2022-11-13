@@ -9,5 +9,5 @@ DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "$DOWNLOAD_URL/$DOWNLOAD_VERSION" -o argo-$DOWNLOAD_VERSION.tar.gz
 mkdir -p $DOWNLOAD_DIRECTORY
-tar -xzf argo-$DOWNLOAD_VERSION.tar.gz --include "**/manifests" --exclude "**/manifests/*.yaml" --exclude "**/manifests/namespace-install" --directory $DOWNLOAD_DIRECTORY --strip-components 2
+tar -xzf argo-$DOWNLOAD_VERSION.tar.gz --include "**/manifests" --exclude "**/manifests/namespace-install" --directory $DOWNLOAD_DIRECTORY --strip-components 2
 rm -f argo-$DOWNLOAD_VERSION.tar.gz
