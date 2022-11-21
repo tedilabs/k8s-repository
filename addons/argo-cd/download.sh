@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://api.github.com/repos/argoproj/argo-cd/tarball"
-DOWNLOAD_VERSION="v2.4.2"
+DOWNLOAD_VERSION="v2.5.2"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "$DOWNLOAD_URL/$DOWNLOAD_VERSION" -o argo-cd-$DOWNLOAD_VERSION.tar.gz

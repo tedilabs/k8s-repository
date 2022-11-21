@@ -20,6 +20,9 @@ spec:
           wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v4.4.0/kustomize_v4.4.0_linux_amd64.tar.gz -q -O - |tar -xz;
           mv kustomize /custom-tools/kustomize_4.4.0;
           chmod uog+x /custom-tools/kustomize_4.4.0;
+          wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v4.5.7/kustomize_v4.5.7_linux_amd64.tar.gz -q -O - |tar -xz;
+          mv kustomize /custom-tools/kustomize_4.5.7;
+          chmod uog+x /custom-tools/kustomize_4.5.7;
         volumeMounts:
         - mountPath: /custom-tools
           name: custom-tools
@@ -35,6 +38,9 @@ spec:
         - mountPath: /usr/local/bin/kustomize_4.4.0
           name: custom-tools
           subPath: kustomize_4.4.0
+        - mountPath: /usr/local/bin/kustomize_4.5.7
+          name: custom-tools
+          subPath: kustomize_4.5.7
       volumes:
       - name: custom-tools
         emptyDir: {}

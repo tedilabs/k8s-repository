@@ -5,5 +5,6 @@ resources:
 - service-monitor.argocd-metrics.yaml
 - service-monitor.argocd-server-metrics.yaml
 - service-monitor.argocd-repo-server-metrics.yaml
+- service-monitor.argocd-applicationset-controller-metrics.yaml
 
 namespace: default
