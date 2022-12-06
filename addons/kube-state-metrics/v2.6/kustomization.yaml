@@ -10,9 +10,9 @@ namespace: kube-system
 labels:
 - pairs:
     app.kubernetes.io/part-of: "kube-state-metrics"
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.6.0"
   includeTemplates: true
 
 images:
 - name: "k8s.gcr.io/kube-state-metrics/kube-state-metrics"
-  newTag: "v2.1.0"
+  newTag: "v2.6.0"
