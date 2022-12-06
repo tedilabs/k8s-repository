@@ -10,9 +10,9 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "rbac-manager"
-    app.kubernetes.io/version: "v1.1.1"
+    app.kubernetes.io/version: "v1.4.2"
   includeTemplates: true
 
 images:
 - name: "quay.io/reactiveops/rbac-manager"
-  newTag: "v1.1.1"
+  newTag: "v1.4.2"
