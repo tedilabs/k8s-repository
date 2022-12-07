@@ -10,6 +10,8 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "grafana"
+    app.kubernetes.io/version: "8.4.6"
+  includeTemplates: true
 
 images:
 - name: "grafana/grafana"
