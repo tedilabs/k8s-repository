@@ -22,10 +22,10 @@ spec:
         image: quay.io/argoproj/argo-rollouts:latest
         imagePullPolicy: Always
         ports:
-          - containerPort: 8090
-            name: metrics
-          - containerPort: 8080
-            name: healthz
+        - containerPort: 8090
+          name: metrics
+        - containerPort: 8080
+          name: healthz
         livenessProbe:
           httpGet:
             path: /healthz
