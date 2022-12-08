@@ -12,7 +12,7 @@ labels:
 - pairs:
     app.kubernetes.io/part-of: "sealed-secrets"
     app.kubernetes.io/version: "v0.18.0"
-  includeSelectors: false
+  includeTemplates: true
 
 images:
 - name: "docker.io/bitnami/sealed-secrets-controller"
