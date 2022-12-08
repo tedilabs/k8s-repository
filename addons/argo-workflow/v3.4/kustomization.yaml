@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crds/
+- argo-server/
+- workflow-controller/
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "argo-workflow"
+    app.kubernetes.io/version: "v3.4.3"
+  includeTemplates: true
+
+images:
+- name: "quay.io/argoproj/argocli"
+  newTag: "v3.4.3"
+- name: "quay.io/argoproj/workflow-controller"
+  newTag: "v3.4.3"
