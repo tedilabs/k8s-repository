@@ -5,8 +5,11 @@ resources:
 - install.yaml
 
 namespace: default
-commonLabels:
-  app.kubernetes.io/part-of: "argo-workflow"
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "argo-workflow"
+    app.kubernetes.io/version: "v3.2.8"
+  includeTemplates: true
 
 replacements:
 - source:

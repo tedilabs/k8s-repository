@@ -7,6 +7,11 @@ resources:
 # - ../../../../components/init-workloads
 
 namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "argo-workflow"
+    app.kubernetes.io/version: "v3.1.1"
+  includeTemplates: true
 
 images:
 - name: "docker.io/argoproj/argocli"

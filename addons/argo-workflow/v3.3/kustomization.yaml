@@ -9,7 +9,7 @@ labels:
 - pairs:
     app.kubernetes.io/part-of: "argo-workflow"
     app.kubernetes.io/version: "v3.3.6"
-  includeSelectors: false
+  includeTemplates: true
 
 replacements:
 - source:
