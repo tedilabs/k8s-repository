@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crds/
+- deployment.yaml
+- network-policy.yaml
+- service.yaml
+- rbac.yaml
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "prometheus-operator"
+  includeTemplates: true
+
+replacements:
+- source:
+    kind: Deployment
+    name: prometheus-operator
+    fieldPath: spec.template.spec.containers.[name=prometheus-operator].image
+    options:
+      delimiter: ":"
+      index: 1
+  targets:
+  - select:
+      kind: Deployment
+      name: prometheus-operator
+    fieldPaths:
+    - spec.template.spec.containers.[name=prometheus-operator].args.1
+    options:
+      delimiter: ":"
+      index: 1
