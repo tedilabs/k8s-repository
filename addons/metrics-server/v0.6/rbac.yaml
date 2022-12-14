@@ -66,7 +66,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: metrics-server
-  namespace: kube-system
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -82,7 +81,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: metrics-server
-  namespace: kube-system
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -98,4 +96,3 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: metrics-server
-  namespace: kube-system

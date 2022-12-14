@@ -11,9 +11,9 @@ namespace: kube-system
 labels:
 - pairs:
     app.kubernetes.io/part-of: "metrics-server"
-    app.kubernetes.io/version: "v0.6.1"
-  includeSelectors: false
+    app.kubernetes.io/version: "v0.6.2"
+  includeTemplates: true
 
 images:
 - name: "k8s.gcr.io/metrics-server/metrics-server"
-  newTag: "v0.6.1"
+  newTag: "v0.6.2"
