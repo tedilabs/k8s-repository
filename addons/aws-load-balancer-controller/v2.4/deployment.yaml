@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: controller
-        image: amazon/aws-alb-ingress-controller:v2.4.1
+        image: amazon/aws-alb-ingress-controller:v2.4.5
         args:
         - --cluster-name=your-cluster-name
         - --ingress-class=alb

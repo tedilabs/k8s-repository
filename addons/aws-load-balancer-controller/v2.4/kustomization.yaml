@@ -14,9 +14,9 @@ namespace: kube-system
 labels:
 - pairs:
     app.kubernetes.io/part-of: "aws-load-balancer-controller"
-    app.kubernetes.io/version: "v2.4.1"
+    app.kubernetes.io/version: "v2.4.5"
   includeSelectors: false
 
 images:
 - name: "amazon/aws-alb-ingress-controller"
-  newTag: "v2.4.1"
+  newTag: "v2.4.5"
