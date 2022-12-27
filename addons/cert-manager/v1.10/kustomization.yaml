@@ -1,0 +1,51 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- crds.yaml
+- configmaps.yaml
+- deployment.cert-manager.yaml
+- deployment.cert-manager-webhook.yaml
+- deployment.cert-manager-cainjector.yaml
+- services.yaml
+- rbac.yaml
+- admission.yaml
+
+configurations:
+- configurations.yaml
+replacements:
+- source:
+    kind: Deployment
+    name: cert-manager
+    fieldPath: metadata.namespace
+  targets:
+  - select:
+      kind: Deployment
+      name: cert-manager
+    fieldPaths:
+    - spec.template.spec.containers.[name=cert-manager-controller].args.2
+    options:
+      delimiter: "="
+      index: 1
+- source:
+    kind: Deployment
+    name: cert-manager-cainjector
+    fieldPath: metadata.namespace
+  targets:
+  - select:
+      kind: Deployment
+      name: cert-manager-cainjector
+    fieldPaths:
+    - spec.template.spec.containers.[name=cert-manager-cainjector].args.1
+    options:
+      delimiter: "="
+      index: 1
+namespace: cert-manager
+
+images:
+- name: "quay.io/jetstack/cert-manager-cainjector"
+  newTag: "v1.10.1"
+- name: "quay.io/jetstack/cert-manager-controller"
+  newTag: "v1.10.1"
+- name: "quay.io/jetstack/cert-manager-webhook"
+  newTag: "v1.10.1"
