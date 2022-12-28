@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- pdb.yaml
+- prometheus.yaml
+- rbac.yaml
+- service.yaml
+
+components:
+- ../configurations
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "kube-prometheus"
+    app.kubernetes.io/version: "v2.37.5"
+  includeTemplates: true
+
+images:
+- name: quay.io/prometheus/prometheus
+  newTag: v2.37.5

@@ -1,0 +1,4 @@
+namespace:
+- path: spec/alerting/alertmanagers/namespace
+  kind: Prometheus
+  create: true
