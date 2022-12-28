@@ -11,35 +11,27 @@ resources:
 - rbac.yaml
 - admission.yaml
 
-configurations:
-- configurations.yaml
-replacements:
-- source:
-    kind: Deployment
-    name: cert-manager
-    fieldPath: metadata.namespace
-  targets:
-  - select:
-      kind: Deployment
-      name: cert-manager
-    fieldPaths:
-    - spec.template.spec.containers.[name=cert-manager-controller].args.2
-    options:
-      delimiter: "="
-      index: 1
-- source:
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/1
+      value: --leader-election-namespace=$(POD_NAMESPACE)
+  target:
+    version: v1
     kind: Deployment
     name: cert-manager-cainjector
-    fieldPath: metadata.namespace
-  targets:
-  - select:
-      kind: Deployment
-      name: cert-manager-cainjector
-    fieldPaths:
-    - spec.template.spec.containers.[name=cert-manager-cainjector].args.1
-    options:
-      delimiter: "="
-      index: 1
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/2
+      value: --leader-election-namespace=$(POD_NAMESPACE)
+  target:
+    version: v1
+    kind: Deployment
+    name: cert-manager
+
+
+configurations:
+- configurations.yaml
 namespace: cert-manager
 
 images:
