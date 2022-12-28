@@ -1,5 +1,6 @@
 apiVersion: v1
 kind: ServiceAccount
+automountServiceAccountToken: true
 metadata:
   name: cert-manager-cainjector
   labels:
@@ -12,6 +13,7 @@ metadata:
 ---
 apiVersion: v1
 kind: ServiceAccount
+automountServiceAccountToken: true
 metadata:
   name: cert-manager
   labels:
@@ -24,6 +26,7 @@ metadata:
 ---
 apiVersion: v1
 kind: ServiceAccount
+automountServiceAccountToken: true
 metadata:
   name: cert-manager-webhook
   labels:
@@ -224,7 +227,7 @@ rules:
 - apiGroups: ["networking.k8s.io"]
   resources: ["ingresses"]
   verbs: ["get", "list", "watch", "create", "delete", "update"]
-- apiGroups: [ "networking.x-k8s.io" ]
+- apiGroups: [ "gateway.networking.k8s.io" ]
   resources: [ "httproutes" ]
   verbs: ["get", "list", "watch", "create", "delete", "update"]
 # We require the ability to specify a custom hostname when we are creating
@@ -271,10 +274,10 @@ rules:
 - apiGroups: ["networking.k8s.io"]
   resources: ["ingresses/finalizers"]
   verbs: ["update"]
-- apiGroups: ["networking.x-k8s.io"]
+- apiGroups: ["gateway.networking.k8s.io"]
   resources: ["gateways", "httproutes"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["networking.x-k8s.io"]
+- apiGroups: ["gateway.networking.k8s.io"]
   resources: ["gateways/finalizers", "httproutes/finalizers"]
   verbs: ["update"]
 - apiGroups: [""]
