@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: argocd-server
+        volumeMounts:
+        - name: extensions
+          mountPath: /tmp/extensions/
+      - name: argocd-extensions
+        image: ghcr.io/argoproj-labs/argocd-extensions:latest
+        volumeMounts:
+        - name: extensions
+          mountPath: /tmp/extensions/
+      volumes:
+      - name: extensions
+        emptyDir: {}
