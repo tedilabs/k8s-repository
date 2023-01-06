@@ -28,3 +28,5 @@ ENABLE_SPOT_INTERRUPTION_DRAINING=true
 ENABLE_SCHEDULED_EVENT_DRAINING=true
 ENABLE_REBALANCE_MONITORING=false
 ENABLE_REBALANCE_DRAINING=false
+# Total number of times to try making the metadata request before failing
+METADATA_TRIES=3

@@ -54,56 +54,12 @@ spec:
           value: "8080"
         - name: PROBES_SERVER_ENDPOINT
           value: "/healthz"
-        - name: LOG_LEVEL
-          value: "info"
-        - name: JSON_LOGGING
-          value: "false"
-        - name: LOG_FORMAT_VERSION
-          value: "1"
-        - name: ENABLE_PROMETHEUS_SERVER
-          value: "false"
-        - name: PROMETHEUS_SERVER_PORT
-          value: "9092"
-        # [DEPRECATED] Use CHECK_TAG_BEFORE_DRAINING instead
-        - name: CHECK_ASG_TAG_BEFORE_DRAINING
-          value: "true"
-        - name: CHECK_TAG_BEFORE_DRAINING
-          value: "true"
-        # [DEPRECATED] Use MANAGED_TAG instead
-        - name: MANAGED_ASG_TAG
-          value: "aws-node-termination-handler/managed"
-        - name: MANAGED_TAG
-          value: "aws-node-termination-handler/managed"
-        - name: USE_PROVIDER_ID
-          value: "false"
-        - name: DRY_RUN
-          value: "false"
-        - name: CORDON_ONLY
-          value: "false"
-        - name: TAINT_NODE
-          value: "false"
         - name: EXCLUDE_FROM_LOAD_BALANCERS
           value: "false"
         - name: DELETE_LOCAL_DATA
           value: "true"
         - name: IGNORE_DAEMON_SETS
           value: "true"
-        - name: POD_TERMINATION_GRACE_PERIOD
-          value: "-1"
-        - name: NODE_TERMINATION_GRACE_PERIOD
-          value: "120"
-        - name: EMIT_KUBERNETES_EVENTS
-          value: "false"
-        - name: COMPLETE_LIFECYCLE_ACTION_DELAY_SECONDS
-          value: "-1"
-        - name: ENABLE_SPOT_INTERRUPTION_DRAINING
-          value: "true"
-        - name: ENABLE_SCHEDULED_EVENT_DRAINING
-          value: "true"
-        - name: ENABLE_REBALANCE_MONITORING
-          value: "false"
-        - name: ENABLE_REBALANCE_DRAINING
-          value: "false"
         - name: ENABLE_SQS_TERMINATION_DRAINING
           value: "true"
         - name: QUEUE_URL
