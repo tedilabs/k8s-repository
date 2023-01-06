@@ -1,0 +1,33 @@
+LOG_LEVEL=info
+LOG_FORMAT_VERSION=2
+JSON_LOGGING=false
+
+EMIT_KUBERNETES_EVENTS=true
+
+ENABLE_PROMETHEUS_SERVER=true
+PROMETHEUS_SERVER_PORT=9092
+
+# Time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used
+# POD_TERMINATION_GRACE_PERIOD=-1
+# The period of time in seconds given to each NODE to terminate gracefully. Node draining will be scheduled based on this value to optimize the amount of compute time, but still safely drain the node before an event
+# NODE_TERMINATION_GRACE_PERIOD=120
+# Pause for the configured duration after draining the node before completing the EC2 Autoscaling lifecycle action. This may be helpful if Pods on the node have Persistent Volume Claims.
+# COMPLETE_LIFECYCLE_ACTION_DELAY_SECONDS=-1
+
+# Only log calls to kubernetes control plane
+DRY_RUN=false
+# Cordon but do not drain nodes upon spot interruption termination notice
+CORDON_ONLY=false
+# Taint node upon spot interruption termination notice
+TAINT_NODE=false
+
+CHECK_TAG_BEFORE_DRAINING=true
+MANAGED_TAG=aws-node-termination-handler/managed
+# If true, fetch node name through Kubernetes node spec ProviderID instead of AWS event PrivateDnsHostname
+USE_PROVIDER_ID=false
+# If specified, use the AWS region for AWS API calls
+# AWS_REGION=
+# Listens for messages on the specified SQS queue URL
+# QUEUE_URL=
+# The maximum amount of parallel event processors to handle concurrent events
+# WORKERS=10

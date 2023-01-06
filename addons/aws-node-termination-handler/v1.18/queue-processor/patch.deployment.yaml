@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-node-termination-handler
+spec:
+  template:
+    spec:
+      containers:
+      - name: aws-node-termination-handler
+        envFrom:
+        - configMapRef:
+            name: aws-node-termination-handler-config
+        ports:
+        - name: metrics
+          protocol: TCP
+          containerPort: 9092
