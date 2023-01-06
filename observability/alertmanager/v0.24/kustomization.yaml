@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- alertmanager.yaml
+- pdb.yaml
+- rbac.yaml
+- secret.yaml
+- service.yaml
+
+components:
+- ../configurations
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "kube-prometheus"
+    app.kubernetes.io/version: "v0.24.0"
+  includeTemplates: true
+
+images:
+- name: quay.io/prometheus/alertmanager
+  newTag: v0.24.0
