@@ -4,7 +4,7 @@ set -euf -o pipefail
 
 
 DOWNLOAD_URL="https://api.github.com/repos/aws/amazon-vpc-cni-k8s/tarball"
-DOWNLOAD_VERSION="v1.12.0"
+DOWNLOAD_VERSION="v1.12.1"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "$DOWNLOAD_URL/$DOWNLOAD_VERSION" -o $DOWNLOAD_VERSION.tar.gz

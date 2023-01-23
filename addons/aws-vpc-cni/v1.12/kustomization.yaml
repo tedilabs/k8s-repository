@@ -10,11 +10,11 @@ resources:
 labels:
 - pairs:
     app.kubernetes.io/part-of: "aws-vpc-cni"
-    app.kubernetes.io/version: "v1.12.0"
+    app.kubernetes.io/version: "v1.12.1"
   includeTemplates: true
 
 images:
 - name: "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init"
-  newTag: "v1.12.0"
+  newTag: "v1.12.1"
 - name: "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
-  newTag: "v1.12.0"
+  newTag: "v1.12.1"
