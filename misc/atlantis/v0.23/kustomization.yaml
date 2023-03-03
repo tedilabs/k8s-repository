@@ -19,10 +19,10 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "atlantis"
-    app.kubernetes.io/version: "0.23.0"
+    app.kubernetes.io/version: "0.23.1"
   includeTemplates: true
 
 
 images:
 - name: "ghcr.io/runatlantis/atlantis"
-  newTag: "v0.23.0"
+  newTag: "v0.23.1"
