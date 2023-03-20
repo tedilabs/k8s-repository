@@ -43,7 +43,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: ebs-plugin
-        image: k8s.gcr.io/provider-aws/aws-ebs-csi-driver
+        image: registry.k8s.io/provider-aws/aws-ebs-csi-driver
         imagePullPolicy: IfNotPresent
         args:
         # - {all,controller,node} # specify the driver mode
@@ -103,7 +103,7 @@ spec:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
       - name: csi-provisioner
-        image: k8s.gcr.io/sig-storage/csi-provisioner
+        image: registry.k8s.io/sig-storage/csi-provisioner
         imagePullPolicy: IfNotPresent
         args:
         - --csi-address=$(ADDRESS)
@@ -123,7 +123,7 @@ spec:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
       - name: csi-attacher
-        image: k8s.gcr.io/sig-storage/csi-attacher
+        image: registry.k8s.io/sig-storage/csi-attacher
         imagePullPolicy: IfNotPresent
         args:
         - --csi-address=$(ADDRESS)
@@ -140,7 +140,7 @@ spec:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
       - name: csi-snapshotter
-        image: k8s.gcr.io/sig-storage/csi-snapshotter
+        image: registry.k8s.io/sig-storage/csi-snapshotter
         imagePullPolicy: IfNotPresent
         args:
         - --csi-address=$(ADDRESS)
@@ -156,7 +156,7 @@ spec:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
       - name: csi-resizer
-        image: k8s.gcr.io/sig-storage/csi-resizer
+        image: registry.k8s.io/sig-storage/csi-resizer
         imagePullPolicy: IfNotPresent
         args:
         - --csi-address=$(ADDRESS)
@@ -173,7 +173,7 @@ spec:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
       - name: liveness-probe
-        image: k8s.gcr.io/sig-storage/livenessprobe
+        image: registry.k8s.io/sig-storage/livenessprobe
         imagePullPolicy: IfNotPresent
         args:
         - --csi-address=/csi/csi.sock

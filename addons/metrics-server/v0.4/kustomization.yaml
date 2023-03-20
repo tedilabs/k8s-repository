@@ -10,5 +10,5 @@ resources:
 namespace: default
 
 images:
-- name: "k8s.gcr.io/metrics-server/metrics-server"
+- name: "registry.k8s.io/metrics-server/metrics-server"
   newTag: "v0.4.2"

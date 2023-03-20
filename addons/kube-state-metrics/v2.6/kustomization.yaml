@@ -14,5 +14,5 @@ labels:
   includeTemplates: true
 
 images:
-- name: "k8s.gcr.io/kube-state-metrics/kube-state-metrics"
+- name: "registry.k8s.io/kube-state-metrics/kube-state-metrics"
   newTag: "v2.6.0"
