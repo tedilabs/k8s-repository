@@ -9,9 +9,9 @@ namespace: kube-system
 labels:
 - pairs:
     app.kubernetes.io/part-of: "csi-snapshotter"
-    app.kubernetes.io/version: "v6.3.2"
+    app.kubernetes.io/version: "v6.3.1"
   includeTemplates: true
 
 images:
 - name: "registry.k8s.io/sig-storage/snapshot-controller"
-  newTag: "v6.3.2"
+  newTag: "v6.3.1"
