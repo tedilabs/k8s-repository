@@ -2,7 +2,7 @@
 
 set -euf -o pipefail
 
-DOWNLOAD_VERSION="v6.2.0"
+DOWNLOAD_VERSION="v6.3.2"
 DOWNLOAD_DIRECTORY="$DOWNLOAD_VERSION"
 
 curl -Ls "https://github.com/kubernetes-csi/external-snapshotter/archive/refs/tags/$DOWNLOAD_VERSION.tar.gz" -o $DOWNLOAD_DIRECTORY.tar.gz
