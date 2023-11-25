@@ -14,6 +14,7 @@ spec:
       labels:
         app.kubernetes.io/name: "http-https-echo"
     spec:
+      serviceAccountName: http-https-echo
       containers:
       - name: http-https-echo
         image: mendhak/http-https-echo

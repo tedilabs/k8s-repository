@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+- rbac.yaml
 
 namespace: default
 labels:
