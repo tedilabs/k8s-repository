@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-https-echo
+  labels:
+    app.kubernetes.io/name: "http-https-echo"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "http-https-echo"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "http-https-echo"
+    spec:
+      containers:
+      - name: http-https-echo
+        image: mendhak/http-https-echo
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
