@@ -1,9 +1,15 @@
 # Domains
 "addons":
-- addons/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - addons/**/*
 
 "misc":
-- misc/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - misc/**/*
 
 "observability":
-- observability/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - observability/**/*
