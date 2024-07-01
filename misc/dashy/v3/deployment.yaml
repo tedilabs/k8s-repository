@@ -48,13 +48,13 @@ spec:
           failureThreshold: 3
           timeoutSeconds: 10
           periodSeconds: 90
-        readinessProbe:
-          httpGet:
-            port: http
-            scheme: HTTP
-          failureThreshold: 3
-          timeoutSeconds: 10
-          periodSeconds: 90
+        # readinessProbe:
+        #   httpGet:
+        #     port: http
+        #     scheme: HTTP
+        #   failureThreshold: 3
+        #   timeoutSeconds: 10
+        #   periodSeconds: 90
         volumeMounts:
         - mountPath: /app/public/conf.yaml
           # readOnly: true
