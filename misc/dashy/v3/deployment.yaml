@@ -6,8 +6,6 @@ metadata:
     app.kubernetes.io/name: "dashy"
 spec:
   replicas: 1
-  updateStrategy:
-    type: RollingUpdate
   selector:
     matchLabels:
       app.kubernetes.io/name: "dashy"
