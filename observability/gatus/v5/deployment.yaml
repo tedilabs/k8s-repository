@@ -32,10 +32,10 @@ spec:
           value: /config
         resources:
           requests:
-            memory: 128Mi
+            memory: 64Mi
             cpu: 50m
           limits:
-            memory: 512Mi
+            memory: 256Mi
         ports:
         - name: http
           protocol: TCP
