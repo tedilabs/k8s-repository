@@ -27,6 +27,9 @@ spec:
           runAsUser: 65534
           runAsGroup: 65534
           readOnlyRootFilesystem: true
+        env:
+        - name: GATUS_CONFIG_PATH
+          value: /config
         resources:
           requests:
             memory: 128Mi
@@ -56,10 +59,9 @@ spec:
           timeoutSeconds: 5
           failureThreshold: 3
         volumeMounts:
-        - mountPath: /config/config.yaml
-          # readOnly: true
+        - mountPath: /config
+          readOnly: true
           name: gatus-config
-          subPath: config.yaml
       volumes:
       - name: gatus-config
         configMap:
