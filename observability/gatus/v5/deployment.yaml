@@ -20,6 +20,10 @@ spec:
       containers:
       - name: gatus
         image: twinproduction/gatus:v5.11.0
+        envFrom:
+        - secretRef:
+            name: gatus-secret
+            optional: true
         # env:
         # - name: GATUS_CONFIG_PATH
         #   value: /config
