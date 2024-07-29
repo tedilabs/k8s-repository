@@ -4,6 +4,8 @@ metadata:
   name: argo-workflow-executor
   labels:
     app.kubernetes.io/name: "argo-workflow-executor"
+secrets:
+- name: argo-workflow-executor.service-account-token
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -31,6 +33,34 @@ rules:
   verbs:
   - get
   - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets
+  - workflowartifactgctasks
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets/status
+  - workflowartifactgctasks/status
+  verbs:
+  - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1

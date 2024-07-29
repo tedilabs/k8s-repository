@@ -3,9 +3,8 @@ kind: Kustomization
 
 resources:
 - rbac.yaml
+- secret.yaml
 
 namespace: default
-labels:
-- pairs:
-    app.kubernetes.io/part-of: "argo-workflow"
-  includeSelectors: false
+commonLabels:
+  app.kubernetes.io/part-of: "argo-workflow"
