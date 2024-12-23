@@ -19,7 +19,7 @@ spec:
       serviceAccountName: gatus
       containers:
       - name: gatus
-        image: twinproduction/gatus:v5.11.0
+        image: twinproduction/gatus:v5.14.0
         envFrom:
         - secretRef:
             name: gatus-secret
