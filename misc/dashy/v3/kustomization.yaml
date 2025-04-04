@@ -15,10 +15,10 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "dashy"
-    app.kubernetes.io/version: "3.1.0"
+    app.kubernetes.io/version: "3.1.1"
   includeTemplates: true
 
 
 images:
 - name: "lissy93/dashy"
-  newTag: "3.1.0"
+  newTag: "3.1.1"
