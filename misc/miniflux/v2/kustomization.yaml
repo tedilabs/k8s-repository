@@ -25,3 +25,6 @@ images:
 - name: miniflux
   newName: miniflux/miniflux
   newTag: "2.2.9"
+- name: reactflux
+  newName: electh/reactflux
+  newTag: "latest"

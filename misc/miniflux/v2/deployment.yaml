@@ -63,6 +63,18 @@ spec:
         - mountPath: /etc/miniflux.conf
           name: miniflux-config
           subPath: miniflux.conf
+      - name: reactflux
+        image: reactflux:latest
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 128Mi
+        ports:
+        - name: web
+          protocol: TCP
+          containerPort: 2000
       volumes:
       - name: miniflux-config
         configMap:
