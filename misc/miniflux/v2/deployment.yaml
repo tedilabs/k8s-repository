@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniflux
+  labels:
+    app.kubernetes.io/name: "miniflux"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "miniflux"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "miniflux"
+    spec:
+      serviceAccountName: miniflux
+      containers:
+      - name: miniflux
+        image: miniflux:latest
+        command:
+        - /usr/bin/miniflux
+        args:
+        - -c
+        - /etc/miniflux.conf
+        env:
+        - name: RUN_MIGRATIONS
+          value: "1"
+        envFrom:
+        - secretRef:
+            name: miniflux-secret
+            optional: true
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 2
+        volumeMounts:
+        - mountPath: /etc/miniflux.conf
+          name: miniflux-config
+          subPath: miniflux.conf
+      volumes:
+      - name: miniflux-config
+        configMap:
+          name: miniflux-config
+          defaultMode: 0644

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: miniflux
+  labels:
+    app.kubernetes.io/name: "miniflux"
+automountServiceAccountToken: true

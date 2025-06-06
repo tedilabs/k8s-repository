@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- deployment.yaml
+- service.yaml
+- rbac.yaml
+
+configMapGenerator:
+- name: miniflux-config
+  files:
+  - miniflux.conf=files/miniflux.conf
+  options:
+    disableNameSuffixHash: true
+
+namespace: default
+labels:
+- pairs:
+    app.kubernetes.io/part-of: "miniflux"
+    app.kubernetes.io/version: "2.2.9"
+  includeTemplates: true
+
+
+images:
+- name: miniflux
+  newName: miniflux/miniflux
+  newTag: "2.2.9"
