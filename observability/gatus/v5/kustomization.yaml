@@ -15,10 +15,10 @@ namespace: default
 labels:
 - pairs:
     app.kubernetes.io/part-of: "gatus"
-    app.kubernetes.io/version: "v5.17.0"
+    app.kubernetes.io/version: "v5.20.0"
   includeTemplates: true
 
 
 images:
 - name: "twinproduction/gatus"
-  newTag: "v5.17.0"
+  newTag: "v5.20.0"
